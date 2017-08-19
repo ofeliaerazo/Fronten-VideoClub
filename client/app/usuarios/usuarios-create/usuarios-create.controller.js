@@ -9,6 +9,7 @@
             this.$state = $state;
             this.tiposDocumentosService = tiposDocumentosService;
             this.ciudadesService = ciudadesService;
+            this.showvalidaDocumento= false;
         }
         $onInit() {
             this.departamentosService.query().$promise
@@ -17,7 +18,7 @@
                 })
                 .catch(err => console.error(err));
             this.tiposDocumentosService.query().$promise
-                .then(response => {
+                .then(response => {response
                     this.tiposDocumento = response;
                     console.log(this.tiposDocumento);
                 })
@@ -51,6 +52,21 @@
                 })
         }
 
+        validarNumDocumento(){
+          console.console.log("numDocumento", this.usuario.numDocumento);
+          this.usuariosService.query({numDocumento:this.usuario.numDocumento}).$promise
+          .then(response =>{
+          console.log("Valida", response.length);
+          this.showValidaDocumento = true;
+          if(this.usuario.numDocumento == Undefined response.length < = 0);
+           this.ValidarNumeroDocumento = false;
+          })
+          .catch(err => {
+            console.log("No exite", err);
+          })
+
+        }
+      }
         imageLoad($fileContent) {
             this.image = $fileContent;
         }

@@ -6,20 +6,37 @@
 		<option ng-value="{{item.id}}" ng-repeat="item in vm.tiposDocumento">{{item.descripcion}}</option>
 	</select>
 
-    <label for="">Documento</label>
-    <input type="text" ng-model="vm.usuario.numDocumento">
+<div class="form-group ">
+  <label for="">Documento</label>
+  <input class "form-control" type="text"
+  ng-blur = "vm.validarNumDocumento()"
+  ng-model = "vm.usuario.numDocumento">
+</div>
+<div ng-show="vm.showValidaDocumento"class="alert alert-danger"
+role = "alert">
+<p> El número de documento ya se encuentra registrado </p>
+</div>
 
     <label for="">Apellidos</label>
-    <input type="text" ng-model="vm.usuario.apellidos">
+    <input type="text" ng-model= "vm.usuario.apellidos">
 
     <label for="">Nombres</label>
-    <input type="text" ng-model="vm.usuario.nombres">
+    <input type= "text" ng-model= "vm.usuario.nombres">
 
+  <div class="form-group ">
     <label for="">Email</label>
-    <input type="text" ng-model="vm.usuario.email">
+    <input class "form-control" type="text"
+    ng-blur = "vm.email()"
+    ng-model="vm.usuario.email">
+  </div>
+
+  <div ng-show="vm.showValidaEmail"class="alert alert-danger"
+  role="alert">
+  <p> El email ya se encuentra registrado </p>
+  </div>
 
     <label for="">password</label>
-    <input type="password" ng-model="vm.usuario.password">
+    <input type="password" ng-model = "vm.usuario.password">
 
     <label for="">Sexo</label>
     <input type="text" ng-model="vm.usuario.sexo">
