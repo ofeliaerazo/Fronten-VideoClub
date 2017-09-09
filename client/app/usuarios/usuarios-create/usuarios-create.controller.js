@@ -10,14 +10,16 @@
             this.tiposDocumentosService = tiposDocumentosService;
             this.ciudadesService = ciudadesService;
             this.showvalidaDocumento= false;
-            this.showValidaremail= false;
+            this.showvalidaEmail= false;
         }
         $onInit() {
+          console.log('ejecucion on init');
             this.departamentosService.query().$promise
                 .then(response => {
                     this.departamentos = response;
                 })
                 .catch(err => console.error(err));
+
             this.tiposDocumentosService.query().$promise
                 .then(response => {response
                     this.tiposDocumento = response;
@@ -54,13 +56,19 @@
         }
 
         validarNumDocumento(){
-          console.console.log("numDocumento", this.usuario.numDocumento);
+          console.log("numDocumento", this.usuario.numDocumento);
           this.usuariosService.query({numDocumento:this.usuario.numDocumento}).$promise
           .then(response =>{
           console.log("Valida", response.length);
-          this.showValidaDocumento = true;
-          if(this.usuario.numDocumento == Undefined ||response.length <= 0);
-           this.ValidarNumeroDocumento = false;
+          this.showvalidaDocumento = true;
+          if(this.usuario.numDocumento == undefined ||response.length == 0){
+            this.showvalidaDocumento = false;
+            console.log('Validacion ',this.showvalidaDocumento);
+          }else{
+            this.showvalidaDocumento = true;
+            console.log('Validacion ',this.showvalidaDocumento);
+          }
+
           })
           .catch(err => {
             console.log("No exite", err);
@@ -69,13 +77,16 @@
         }
 
         validarEmail(){
-          console.console.log("email", this.usuario.email);
+          console.log("email", this.usuario.email);
           this.usuariosService.query({email:this.usuario.email}).$promise
           .then(response =>{
           console.log("Valida", response.length);
-          this.showValidaremail = true;
-          if(this.usuario.email == Undefined ||response.length <= 0);
-           this.Validaremail = false;
+          this.showvalidaEmail = true;
+          console.log("este email ya existe",this.showvalidaEmail);
+          if(this.usuario.email == undefined ||response.length == 0){
+           this.showvalidaEmail = false;
+           console.log(this.showvalidaEmail);
+         }
           })
           .catch(err => {
             console.log("No exite", err);
@@ -88,7 +99,7 @@
         }
 
     }
-    UsuariosCreateComponent.$inject = ['usuariosService', 'departamentosService', 'ciudadesService', 'tiposDocumentosService', '$state'];
+    //UsuariosCreateComponent.$inject = ['usuariosService', 'departamentosService', 'ciudadesService', 'tiposDocumentosService', '$state','showvalidaDocumento','showValidaremail'];
     angular.module('videoClubApp')
         .component('usuariosCreate', {
             templateUrl: 'app/usuarios/usuarios-create/usuarios-create.html',

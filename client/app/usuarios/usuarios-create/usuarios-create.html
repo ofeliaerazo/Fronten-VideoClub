@@ -1,18 +1,40 @@
 <div>This is the usuarios-create view.</div>
 
-<form name="userForm" ng-submit="vm.createUser()">
+<form name="userForm" ng-submit="userForm.$valid && vm.createUser()" novalidate>
     <label for="">Tipo Documento</label>
     <select name="" id="" ng-model="vm.usuario.tipoDocumento.id">
 		<option ng-value="{{item.id}}" ng-repeat="item in vm.tiposDocumento">{{item.descripcion}}</option>
 	</select>
 
 <div class="form-group ">
-  <label for="">Documento</label>
-  <input class "form-control" type="text"
+  <label form="">Documento</label>
+  <input
+  class "form-control"
+  type="text"
+  name="numDocumento"
+  required
+  minlength="7"
+  maxlength="10"
+  ng-pattern="/^[0-9]{1,20}$/"
   ng-blur = "vm.validarNumDocumento()"
   ng-model = "vm.usuario.numDocumento">
+
+  <div class=""
+      ng-messages="userForm.numDocumento.$error"
+      ng-show"userForm.numDocumento.$dirty">
+
+    <div class=""ng-message="pattern">Este campo solo admite numeros</div>
+    <div class=""ng-message="required">Este es el campo requerido</div>
+    <div class=""ng-message="minlength">el documeno debe tener minimo 7 caracteres</div>
+    <div class=""ng-message="maxlength"> el documento debe tener maximo 10 caracteres </div>
+
 </div>
-<div ng-show="vm.showValidaDocumento"class="alert alert-danger"
+
+</div>
+
+<!--Para email:   ng-pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"   -->
+
+<div ng-show="vm.showvalidaDocumento"class="alert alert-danger"
 role = "alert">
 <p> El número de documento ya se encuentra registrado </p>
 </div>
@@ -23,18 +45,54 @@ role = "alert">
     <label for="">Nombres</label>
     <input type= "text" ng-model= "vm.usuario.nombres">
 
-  <div class="form-group ">
-    <label for="">Email</label>
-    <input class "form-control" type="text"
 
-    ng-blur = "vm.validarEmail()"
-    ng-model="vm.usuario.email">
-  </div>
 
-  <div ng-show="vm.showValidarEmail"class="alert alert-danger"
-  role="alert">
-  <p> El email ya se encuentra registrado </p>
-  </div>
+    <div class="form-group ">
+      <label for="">Email</label>
+      <input class "form-control" type="text"
+      ng-blur = "vm.validarEmail()"
+      ng-model="vm.usuario.email">
+    </div>
+
+    <div ng-show="vm.showvalidaEmail"class="alert alert-danger"
+    role="alert">
+    <p> El email ya se encuentra registrado </p>
+    </div>
+
+
+    <div class="form-group ">
+      <label form="">Email</label>
+      <input class "form-control"
+      type="text"
+      name="email"
+      required
+      ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"
+
+      ng-blur = "vm.validarEmail()"
+      ng-model = "vm.usuario.email">
+
+      <div class=""
+          ng-messages="userForm.email.$error"
+          ng-show"userForm.email.$dirty">
+
+        <div class=""ng-message="pattern">Este campo no corresponde a la estructura de un correo.</div>
+        <div class=""ng-message="required">Este es el campo requerido</div>
+      </div>
+
+    </div>
+
+    <!--Para email:   ng-pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"   -->
+
+    <div ng-show="vm.showvalidaDocumento"class="alert alert-danger"
+    role = "alert">
+    <p> El número de documento ya se encuentra registrado </p>
+    </div>
+
+
+
+
+
+
 
     <label for="">password</label>
     <input type="password" ng-model = "vm.usuario.password">
