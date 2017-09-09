@@ -10,6 +10,7 @@
             this.tiposDocumentosService = tiposDocumentosService;
             this.ciudadesService = ciudadesService;
             this.showvalidaDocumento= false;
+            this.showValidaremail= false;
         }
         $onInit() {
             this.departamentosService.query().$promise
@@ -58,7 +59,7 @@
           .then(response =>{
           console.log("Valida", response.length);
           this.showValidaDocumento = true;
-          if(this.usuario.numDocumento == Undefined response.length < = 0);
+          if(this.usuario.numDocumento == Undefined ||response.length <= 0);
            this.ValidarNumeroDocumento = false;
           })
           .catch(err => {
@@ -66,7 +67,22 @@
           })
 
         }
-      }
+
+        validarEmail(){
+          console.console.log("email", this.usuario.email);
+          this.usuariosService.query({email:this.usuario.email}).$promise
+          .then(response =>{
+          console.log("Valida", response.length);
+          this.showValidaremail = true;
+          if(this.usuario.email == Undefined ||response.length <= 0);
+           this.Validaremail = false;
+          })
+          .catch(err => {
+            console.log("No exite", err);
+          })
+
+        }
+
         imageLoad($fileContent) {
             this.image = $fileContent;
         }

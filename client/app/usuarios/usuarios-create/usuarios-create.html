@@ -26,11 +26,12 @@ role = "alert">
   <div class="form-group ">
     <label for="">Email</label>
     <input class "form-control" type="text"
-    ng-blur = "vm.email()"
+
+    ng-blur = "vm.validarEmail()"
     ng-model="vm.usuario.email">
   </div>
 
-  <div ng-show="vm.showValidaEmail"class="alert alert-danger"
+  <div ng-show="vm.showValidarEmail"class="alert alert-danger"
   role="alert">
   <p> El email ya se encuentra registrado </p>
   </div>
