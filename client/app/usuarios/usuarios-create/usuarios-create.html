@@ -22,19 +22,15 @@
   <div class=""
       ng-messages="userForm.numDocumento.$error"
       ng-show"userForm.numDocumento.$dirty">
-
     <div class=""ng-message="pattern">Este campo solo admite numeros</div>
     <div class=""ng-message="required">Este es el campo requerido</div>
     <div class=""ng-message="minlength">el documeno debe tener minimo 7 caracteres</div>
     <div class=""ng-message="maxlength"> el documento debe tener maximo 10 caracteres </div>
-
 </div>
 
 </div>
 
-<!--Para email:   ng-pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"   -->
-
-<div ng-show="vm.showvalidaDocumento"class="alert alert-danger"
+<div ng-show="vm.showValidaDocumento"class="alert alert-danger"
 role = "alert">
 <p> El número de documento ya se encuentra registrado </p>
 </div>
@@ -47,17 +43,17 @@ role = "alert">
 
 
 
-    <div class="form-group ">
+    <!--div class="form-group ">
       <label for="">Email</label>
       <input class "form-control" type="text"
       ng-blur = "vm.validarEmail()"
       ng-model="vm.usuario.email">
     </div>
 
-    <div ng-show="vm.showvalidaEmail"class="alert alert-danger"
+    <div ng-show="vm.showValidaEmail"class="alert alert-danger"
     role="alert">
     <p> El email ya se encuentra registrado </p>
-    </div>
+  </div-->
 
 
     <div class="form-group ">
@@ -81,18 +77,12 @@ role = "alert">
 
     </div>
 
-    <!--Para email:   ng-pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"   -->
+    <!--Para validar email:   ng-pattern= "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"   -->
 
-    <div ng-show="vm.showvalidaDocumento"class="alert alert-danger"
+    <div ng-show="vm.showValidaEmail"class="alert alert-danger"
     role = "alert">
-    <p> El número de documento ya se encuentra registrado </p>
+    <p> El email ya se encuentra registrado </p>
     </div>
-
-
-
-
-
-
 
     <label for="">password</label>
     <input type="password" ng-model = "vm.usuario.password">
@@ -105,10 +95,30 @@ role = "alert">
 		<option ng-value="{{item.id}}" ng-repeat="item in vm.departamentos">{{item.nombre}}</option>
 	</select>
 
-    <label for="">Ciudad</label>
+    <!--label for="">Ciudad</label>
     <select name="" id="" ng-model="vm.usuario.ciudad.id">
 		<option ng-value="{{item.id}}" ng-repeat="item in vm.ciudades">{{item.nombre}}</option>
-	</select>
+	</select-->
+
+  <md-autocomplete
+
+          md-selected-item="vm.selectedItem"
+          md-search-text-change="vm.searchTextChange(vm.searchText)"
+          md-search-text="vm.searchText"
+          md-items="item in vm.traerCiudades(vm.searchText)"
+          md-item-text="item.nombre"
+          md-min-length="0"
+          placeholder="Pick an Angular repository"
+          md-menu-class="autocomplete-custom-template">
+        <md-item-template>
+          <span class="item-title">
+
+            <span> {{item.nombre}} </span>
+          </span>
+
+        </md-item-template>
+      </md-autocomplete>
+
 
     <div>
         <label for="foto-input">

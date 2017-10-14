@@ -9,11 +9,20 @@
             this.$state = $state;
             this.tiposDocumentosService = tiposDocumentosService;
             this.ciudadesService = ciudadesService;
-            this.showvalidaDocumento= false;
-            this.showvalidaEmail= false;
+            this.showValidaDocumento= false;
+            this.showValidaEmail= false;
+            this.usuario = {
+              numDocumento: null,
+              ciudad:{
+                id: null
+              }
+            }
+
+
         }
         $onInit() {
           console.log('ejecucion on init');
+          //this.traerCiudades("p");
             this.departamentosService.query().$promise
                 .then(response => {
                     this.departamentos = response;
@@ -21,12 +30,13 @@
                 .catch(err => console.error(err));
 
             this.tiposDocumentosService.query().$promise
-                .then(response => {response
+                .then(response => {
                     this.tiposDocumento = response;
                     console.log(this.tiposDocumento);
                 })
                 .catch(err => console.error(err));
         }
+
         getCiudades() {
             this.ciudadesService.getCiudades({ idDepartamento: this.idDepartamento }).$promise
                 .then(response => {
@@ -35,6 +45,7 @@
                 })
                 .catch(err => console.error(err));
         }
+
 
         createUser() {
             console.log('IMAGEN');
@@ -55,21 +66,41 @@
                 })
         }
 
+        traerCiudades(searchText){
+          return this.ciudadesService.getCiudades({nombre: searchText}).$promise
+            .then(response => {
+              console.log("REST Ciudades", response);
+              return response;
+            })
+            .catch(err => console.error(err));
+
+
+        }
+
+        selectItemChange(item){
+          console.log("ITEM", item);
+          if(item != undefined){
+          this.usuarios.ciudad.id=item.id;
+          }
+
+
+        }
+
         validarNumDocumento(){
           console.log("numDocumento", this.usuario.numDocumento);
           this.usuariosService.query({numDocumento:this.usuario.numDocumento}).$promise
           .then(response =>{
           console.log("Valida", response.length);
-          this.showvalidaDocumento = true;
+          //this.showValidaDocumento = true;
           if(this.usuario.numDocumento == undefined ||response.length == 0){
-            this.showvalidaDocumento = false;
-            console.log('Validacion ',this.showvalidaDocumento);
+            this.showValidaDocumento = true;
+            console.log('Validacion ',this.showValidaDocumento);
           }else{
-            this.showvalidaDocumento = true;
-            console.log('Validacion ',this.showvalidaDocumento);
+            this.showValidaDocumento = false;
+            console.log('Validacion ',this.showValidaDocumento);
           }
 
-          })
+        })
           .catch(err => {
             console.log("No exite", err);
           })
@@ -99,7 +130,7 @@
         }
 
     }
-    //UsuariosCreateComponent.$inject = ['usuariosService', 'departamentosService', 'ciudadesService', 'tiposDocumentosService', '$state','showvalidaDocumento','showValidaremail'];
+    //UsuariosCreateComponent.$inject = ['usuariosService', 'departamentosService', 'ciudadesService', 'tiposDocumentosService', '$state','showValidaDocumento','showValidarEmail'];
     angular.module('videoClubApp')
         .component('usuariosCreate', {
             templateUrl: 'app/usuarios/usuarios-create/usuarios-create.html',
