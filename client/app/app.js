@@ -10,7 +10,8 @@ angular.module('videoClubApp', [
         'ngFileUpload',
         'satellizer',
         'ngImgCrop',
-        'ngFileSaver'
+        'ngFileSaver',
+        'ngMaterial'
     ])
     .constant("API", "http://localhost:8080/adsi2017_backend_completo-master")
     .config(function($urlRouterProvider, $locationProvider, $authProvider, API) {
